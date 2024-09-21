@@ -11,7 +11,7 @@ from load_creds import load_creds
 creds = load_creds()
 genai.configure(credentials=creds)
 
-base_model = "models/gemini-1.5-pro"
+base_model = "models/gemini-1.5-flash-001-tuning"
 
 training_data = [
     {"text_input": "ISA*00*          *00*          *01*197819683      *01*00060902413TST *240919*0650*U*00401*000000131*0*T*|~\nGS*PR*197819683*0060902411A2B*240919*0650*000000131*X*004010~\nST*855*600000482~\nBAK*06*AD*100000*20160922~\nREF*YB*0~\nN9*L1**Notes ~\nMSG*Acknowledge on order received.~\nPO1*1*1234567890.1*EA***BP*86100000~\nPID*F****Test Product 100001~\nACK*IA*1234567890.1*EA*069*20160929~\nN9*L1**Letters or Notes~\nMSG*Acknowledge on order received.~\nCTT*1~\nSE*12*600000482~\nGE*1*000000131~\nIEA*1*000000131~",
@@ -39,8 +39,9 @@ training_data = [
     {"text_input": "ISA*00*          *00*          *ZZ*093120871T     *01*00060902413TST *240918*0415*U*00401*000000607*0*T*|~\nGS*PR*093120871T*06090241322*20240918*0415*607*X*004010~\nST*855*0001~\nBAK*06*AD*4301512372*20240610~\nREF*YB*0~\nPO1*10*3205*EA*156.0**BP*1107204-02~\nPID*F****Memory, 64GB, Micron-Renesas-MPS, DDR5, 4800Mhz, PC5-4800, A-die, 9x4, 288-pin 2~\nACK*IA*3205*EA*069*20240812**BP*1107204-02~\nPO1*20*201882*EA*156.87**BP*1106920-02~\nPID*F****Memory, 64GB, Micron-Renesas-MPS, DDR5, 4800Mhz, PC5-4800, 10x4, A-Die, 288-pin~\nACK*IA*201882*EA*069*20240902**BP*1106920-02~\nCTT*2~\nSE*11*0001~\nGE*1*607~\nIEA*1*000000607~",
      "output": "{\n  \"purchase_order_header\": {\n    \"order_id\": \"4301512372\",\n    \"order_revision\": \"0\",\n    \"change_code\": \"NOCHANGE\",\n    \"purpose_code\": \"ACK\",\n    \"purchasing_operating_unit\": {\n      \"operating_unit_id\": 22\n    },\n    \"date_times\": [\n      {\n        \"date_time_type\": \"POD\",\n        \"date_time_value\": {\n          \"seconds\": 1718006400\n        }\n      }\n    ]\n  },\n  \"purchase_order_lines\": [\n    {\n      \"line_id\": \"10\",\n      \"item_details\": [\n        {\n          \"item_type\": \"BITM\",\n          \"item_name\": \"1107204-02\",\n          \"item_description\": \"Memory, 64GB, Micron-Renesas-MPS, DDR5, 4800Mhz, PC5-4800, A-die, 9x4, 288-pin 2\"\n        }\n      ],\n      \"date_times\": [\n        {\n          \"date_time_type\": \"CSD\",\n          \"date_time_value\": {\n            \"seconds\": 1723449600\n          }\n        }\n      ],\n      \"quantities\": [\n        {\n          \"quantity_type\": \"COR_QT\",\n          \"quantity_value\": 3205,\n          \"unit_of_measure\": \"EA\"\n        }\n      ],\n      \"change_code\": \"NOCHANGE\"\n    },\n    {\n      \"line_id\": \"20\",\n      \"item_details\": [\n        {\n          \"item_type\": \"BITM\",\n          \"item_name\": \"1106920-02\",\n          \"item_description\": \"Memory, 64GB, Micron-Renesas-MPS, DDR5, 4800Mhz, PC5-4800, 10x4, A-Die, 288-pin\"\n        }\n      ],\n      \"date_times\": [\n        {\n          \"date_time_type\": \"CSD\",\n          \"date_time_value\": {\n            \"seconds\": 1725264000\n          }\n        }\n      ],\n      \"quantities\": [\n        {\n          \"quantity_type\": \"COR_QT\",\n          \"quantity_value\": 201882,\n          \"unit_of_measure\": \"EA\"\n        }\n      ],\n      \"change_code\": \"NOCHANGE\"\n    }\n  ]\n}"},
 ]
+
 operation = genai.create_tuned_model(
-    display_name="increment",
+    display_name="finetune-edi-855",
     source_model=base_model,
     epoch_count=20,
     batch_size=4,
