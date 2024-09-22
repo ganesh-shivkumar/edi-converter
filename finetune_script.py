@@ -1,8 +1,3 @@
-"""
-Install the Google AI Python SDK
-
-$ pip install google-generativeai
-"""
 import time
 import google.generativeai as genai
 from load_creds import load_creds
@@ -39,17 +34,18 @@ training_data = [
      "output": "{\n  \"purchase_order_header\": {\n    \"order_id\": \"4301512372\",\n    \"order_revision\": \"0\",\n    \"change_code\": \"NOCHANGE\",\n    \"purpose_code\": \"ACK\",\n    \"purchasing_operating_unit\": {\n      \"operating_unit_id\": 22\n    },\n    \"date_times\": [\n      {\n        \"date_time_type\": \"POD\",\n        \"date_time_value\": {\n          \"seconds\": 1718006400\n        }\n      }\n    ]\n  },\n  \"purchase_order_lines\": [\n    {\n      \"line_id\": \"10\",\n      \"item_details\": [\n        {\n          \"item_type\": \"BITM\",\n          \"item_name\": \"1107204-02\",\n          \"item_description\": \"Memory, 64GB, Micron-Renesas-MPS, DDR5, 4800Mhz, PC5-4800, A-die, 9x4, 288-pin 2\"\n        }\n      ],\n      \"date_times\": [\n        {\n          \"date_time_type\": \"CSD\",\n          \"date_time_value\": {\n            \"seconds\": 1723449600\n          }\n        }\n      ],\n      \"quantities\": [\n        {\n          \"quantity_type\": \"COR_QT\",\n          \"quantity_value\": 3205,\n          \"unit_of_measure\": \"EA\"\n        }\n      ],\n      \"change_code\": \"NOCHANGE\"\n    },\n    {\n      \"line_id\": \"20\",\n      \"item_details\": [\n        {\n          \"item_type\": \"BITM\",\n          \"item_name\": \"1106920-02\",\n          \"item_description\": \"Memory, 64GB, Micron-Renesas-MPS, DDR5, 4800Mhz, PC5-4800, 10x4, A-Die, 288-pin\"\n        }\n      ],\n      \"date_times\": [\n        {\n          \"date_time_type\": \"CSD\",\n          \"date_time_value\": {\n            \"seconds\": 1725264000\n          }\n        }\n      ],\n      \"quantities\": [\n        {\n          \"quantity_type\": \"COR_QT\",\n          \"quantity_value\": 201882,\n          \"unit_of_measure\": \"EA\"\n        }\n      ],\n      \"change_code\": \"NOCHANGE\"\n    }\n  ]\n}"},
 ]
 
-operation = genai.create_tuned_model(
-    display_name="finetune-edi-855",
-    source_model=base_model,
-    epoch_count=20,
-    batch_size=4,
-    learning_rate=0.001,
-    training_data=training_data,
-)
+def finetune_model():
+    operation = genai.create_tuned_model(
+        display_name="finetune-edi-855",
+        source_model=base_model,
+        epoch_count=20,
+        batch_size=4,
+        learning_rate=0.001,
+        training_data=training_data,
+    )
 
-for status in operation.wait_bar():
-    time.sleep(10)
+    for status in operation.wait_bar():
+        time.sleep(10)
 
-result = operation.result()
-print(result)
+    result = operation.result()
+    return result.name
