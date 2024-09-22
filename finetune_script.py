@@ -45,7 +45,7 @@ def finetune_model():
     )
 
     for status in operation.wait_bar():
-        time.sleep(10)
+        time.sleep(2)
 
     result = operation.result()
     return result.name
