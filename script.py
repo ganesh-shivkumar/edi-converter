@@ -6,9 +6,8 @@ app = Flask(__name__)
 
 @app.route('/api/data', methods=['POST'])
 def get_data():
-    print(request)
     data = get_json_response_for_edi(request.data.decode("utf-8"))
-    print(data)
+    data = data.replace('\n', '<br>')
     return jsonify(data)
 
 
