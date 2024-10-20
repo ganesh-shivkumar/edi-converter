@@ -8,11 +8,8 @@ class TrainingData:
         timestamps = timestamp_collection.find().sort({"timestamp":-1})
         print(timestamps)
         for timestamp in timestamps:
-            latest = True
-            if latest:
-                data = edi855_json_db["edi855_edi_json_data"].find({"timestamp" : timestamp.get("timestamp")})
-                return data
-            latest = False
+            data = edi855_json_db["edi855_edi_json_data"].find({"timestamp" : timestamp.get("timestamp")})
+            return data
         return []
 
 

@@ -17,7 +17,7 @@ for model in models:
     latest = False
 
 
-def get_json_response_for_edi( edi) :
+def get_json_response_for_edi(edi) :
     tuned_prompt = """Convert the given EDI into JSON as per tuned model.""" + edi
     tuned_response = tuned_model.generate_content(tuned_prompt)
     return tuned_response.text
