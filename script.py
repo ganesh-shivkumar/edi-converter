@@ -17,5 +17,9 @@ def train_data():
 def get_latest_tuned_model():
     return jsonify(get_latest_from_db())
 
+@app.route('/api/chat', methods=['POST'])
+def call_gemini():
+    return jsonify("123456")
+
 if __name__ == '__main__':
     app.run()
