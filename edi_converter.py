@@ -10,12 +10,14 @@ model_collection = edi855_json_db["finetune_model_names"]
 
 models = model_collection.find().sort({"timestamp":-1})
 tuned_model = "models/gemini-1.5-flash"
+latest_tuned_model_name = ""
 for model in models:
-    latest = True
-    if latest:
-        tuned_model = genai.GenerativeModel(model_name=model.get("tunedmodelname"))
-    latest = False
+    tuned_model = genai.GenerativeModel(model_name=model.get("tunedmodelname"))
+    latest_tuned_model_name = model.get("tunedmodelname") + " : " + model.get("timestamp")
+    break
 
+def get_latest_from_db():
+    return latest_tuned_model_name
 
 def get_json_response_for_edi(edi) :
     tuned_prompt = """Convert the given EDI into JSON as per tuned model.""" + edi

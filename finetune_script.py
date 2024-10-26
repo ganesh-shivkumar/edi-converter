@@ -24,7 +24,7 @@ def finetune_model():
     )
 
     for status in operation.wait_bar():
-        time.sleep(2)
+        time.sleep(1)
 
     result = operation.result()
 
@@ -40,4 +40,4 @@ def finetune_model():
     }
 
     model_collection.insert_one(model_1)
-    return result.name
+    return result.name + " : " + timestamp_str

@@ -97,5 +97,20 @@ item_11 = {
     "timestamp" : timestampStr
 }
 
+item_12 = {
+    "_id" : timestampStr+"012",
+    "text_input": "asdfg",
+    "output": "Invalid EDI Message",
+    "timestamp" : timestampStr
+}
+
+item_13 = {
+    "_id" : timestampStr+"013",
+    "text_input": "ljljlllljk",
+    "output": "Invalid EDI Message",
+    "timestamp" : timestampStr
+}
+
+
 timestampCollection.insert_one(timestamp_1)
-dataCollection.insert_many([item_1, item_2, item_3, item_4, item_5, item_6, item_7, item_8, item_9, item_10, item_11])
+dataCollection.insert_many([item_1, item_2, item_3, item_4, item_5, item_6, item_7, item_8, item_9, item_10, item_11, item_12, item_13])
