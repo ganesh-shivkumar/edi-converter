@@ -26,7 +26,7 @@ def call_gemini():
     chat_input = json_request['input']
     return jsonify(generic_prompt(edi, json, chat_input))
 
-@app.route('/api/user/login', methods['POST'])
+@app.route('/api/user/login', methods=['POST'])
 def create_user():
     json_request = request.json
     username = json_request['username']
