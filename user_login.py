@@ -1,4 +1,4 @@
-from populate_edi855_data import get_database
+from db_helper import get_database
 import string
 
 edi855_json_db = get_database("edi855_edi_json_data")

@@ -1,18 +1,15 @@
 import time
 import google.generativeai as genai
 from load_creds import load_creds
-from edi_training_data import TrainingData
-from populate_edi855_data import get_database
+from db_helper import get_database, get_training_data
 from datetime import datetime
 
 creds = load_creds()
 genai.configure(credentials=creds)
 
-data_obj = TrainingData()
-
 def finetune_model():
     base_model = "models/gemini-1.5-flash-001-tuning"
-    training_data = data_obj.training_data()
+    training_data = get_training_data()
 
     operation = genai.create_tuned_model(
         display_name="finetune-edi-855",

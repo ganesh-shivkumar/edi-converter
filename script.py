@@ -1,5 +1,5 @@
 from flask import Flask, jsonify, request
-from edi_converter import get_json_response_for_edi, get_latest_from_db, generic_prompt
+from gemini_client import get_json_response_for_edi, get_latest_from_db, generic_prompt
 from finetune_script import finetune_model
 from user_login import create_or_login_user
 
