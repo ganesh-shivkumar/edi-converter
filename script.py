@@ -1,5 +1,5 @@
 from flask import Flask, jsonify, request
-from gemini_client import get_json_response_for_edi, get_latest_from_db, generic_prompt
+from gemini_client import get_json_response_for_edi, get_latest_from_db, generic_prompt, validate_data
 from finetune_script import finetune_model
 from user_login import create_or_login_user
 
@@ -33,6 +33,13 @@ def create_user():
     password = json_request['password']
     action = json_request['action']
     return jsonify(create_or_login_user(username, password, action))
+
+@app.route('/api/validate', methods=['POST'])
+def validate_gemini_call():
+    json_request = request.json
+    edi = json_request['edi']
+    json = json_request['json']
+    return jsonify(validate_data(edi, json))
 
 if __name__ == '__main__':
     app.run()

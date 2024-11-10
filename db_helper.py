@@ -117,11 +117,16 @@ data_collection.insert_many([item_1, item_2, item_3, item_4, item_5, item_6, ite
 def get_validation_data(po_number):
     validation_data_collection = edi855_json_db["validation"]
     data = validation_data_collection.find({"ponumber" : po_number})
-    return data
+    data_string = ''
+    for row in data:
+        data_string = data_string + "ponumber - " + row.get("ponumber") + '\n'
+        data_string = data_string + "status - " + row.get("status") + '\n'
+        data_string = data_string + "podate - " + row.get("podate") + '\n'
+        data_string = data_string + "lineitems - " + str(list(row.get("lineitems"))) + '\n'
+    return data_string
 
 def get_training_data():
     timestamps = edi855_json_db["timestamp"].find().sort({"timestamp":-1})
-    print(timestamps)
     for timestamp in timestamps:
         data = edi855_json_db["edi855_edi_json_data"].find({"timestamp" : timestamp.get("timestamp")})
         return data
